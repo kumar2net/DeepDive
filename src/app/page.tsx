@@ -14,7 +14,7 @@ import {
 	SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { concepts, topics } from "@/lib/concepts";
-import { PageProps } from "next/types";
+
 import ConceptView from "@/components/concept-view";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Bot } from "lucide-react";
@@ -64,9 +64,10 @@ function TopicNavigator({ currentTopicId }: { currentTopicId: string }) {
 	);
 }
 
-export default async function Home({ searchParams }: PageProps) {
+export default async function Home({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
 	const params = await searchParams;
-	const currentTopicId = params.topic || topics[0].concepts[0].id;
+	const topicParam = params.topic;
+	const currentTopicId = (Array.isArray(topicParam) ? topicParam[0] : topicParam) || topics[0].concepts[0].id;
 	return (
 		<SidebarProvider>
 			<Sidebar>
