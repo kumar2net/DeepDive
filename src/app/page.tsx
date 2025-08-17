@@ -65,8 +65,8 @@ function TopicNavigator({ currentTopicId }: { currentTopicId: string }) {
 }
 
 export default async function Home({ searchParams }: PageProps) {
-
-	const currentTopicId = (await searchParams.topic) || topics[0].concepts[0].id;
+	const params = await searchParams;
+	const currentTopicId = params.topic || topics[0].concepts[0].id;
 	return (
 		<SidebarProvider>
 			<Sidebar>
