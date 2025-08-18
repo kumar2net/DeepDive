@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
 				pathname: "/**",
 			},
 		],
+		unoptimized: true,
+	},
+	experimental: {
+		serverComponentsExternalPackages: ['@genkit-ai/googleai'],
 	},
 };
 

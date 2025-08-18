@@ -7,7 +7,7 @@ A comprehensive learning platform for deep learning concepts with AI-powered pro
 - Interactive deep learning concept exploration
 - AI-powered project idea generation
 - Responsive design with modern UI
-- Fallback project ideas when AI is unavailable
+- Server-side rendering with Next.js 15
 
 ## Setup
 
@@ -28,7 +28,16 @@ npm run dev
 
 ### Deployment
 
-The app is configured for deployment on Vercel with automatic deployments on git push.
+The app is configured for deployment on Netlify with automatic deployments on git push.
+
+#### Netlify Deployment Steps:
+
+1. **Connect Repository**: Link your GitHub repository to Netlify
+2. **Build Settings**:
+   - Build command: `npm run build`
+   - Publish directory: `.next`
+3. **Environment Variables**: Add `GOOGLE_AI_API_KEY` in Netlify dashboard
+4. **Deploy**: Netlify will automatically build and deploy on every push
 
 ## Tech Stack
 
@@ -38,3 +47,4 @@ The app is configured for deployment on Vercel with automatic deployments on git
 - Genkit AI
 - Google AI (Gemini)
 - Radix UI Components
+- Netlify (Hosting)
