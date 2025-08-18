@@ -25,11 +25,63 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 				.map((idea) => idea.replace(/^\d+\.\s*/, "")); // Remove numbering like "1. "
 			setIdeas(ideaList);
 		} catch (e) {
-			setError("Failed to generate project ideas. Please try again later.");
-			console.error(e);
+			console.error("AI generation error:", e);
+			// Provide fallback ideas based on the concept
+			const fallbackIdeas = getFallbackIdeas(conceptName);
+			setIdeas(fallbackIdeas);
+			setError("AI service temporarily unavailable. Here are some general project ideas:");
 		} finally {
 			setLoading(false);
 		}
+	};
+
+	const getFallbackIdeas = (concept: string): string[] => {
+		const conceptLower = concept.toLowerCase();
+		const ideas: string[] = [];
+		
+		if (conceptLower.includes("neural") || conceptLower.includes("network")) {
+			ideas.push(
+				"Build a simple neural network from scratch using Python and NumPy",
+				"Create an image classification model using TensorFlow or PyTorch",
+				"Implement a neural network for time series prediction",
+				"Build a sentiment analysis model using neural networks",
+				"Create a neural network for music generation"
+			);
+		} else if (conceptLower.includes("cnn") || conceptLower.includes("convolutional")) {
+			ideas.push(
+				"Build an image classifier using CNN architecture",
+				"Create a face detection system using CNNs",
+				"Implement object detection with YOLO or similar",
+				"Build a medical image analysis system",
+				"Create a style transfer application"
+			);
+		} else if (conceptLower.includes("rnn") || conceptLower.includes("recurrent")) {
+			ideas.push(
+				"Build a text generation model using RNNs",
+				"Create a language translation system",
+				"Implement a speech recognition model",
+				"Build a time series forecasting model",
+				"Create a chatbot using sequence-to-sequence models"
+			);
+		} else if (conceptLower.includes("transformer") || conceptLower.includes("attention")) {
+			ideas.push(
+				"Build a simple transformer model from scratch",
+				"Create a text summarization system",
+				"Implement a question-answering system",
+				"Build a machine translation model",
+				"Create a code generation model"
+			);
+		} else {
+			ideas.push(
+				"Build a simple classification model",
+				"Create a regression model for prediction",
+				"Implement a clustering algorithm",
+				"Build a recommendation system",
+				"Create a data visualization dashboard"
+			);
+		}
+		
+		return ideas;
 	};
 
 	return (
@@ -44,9 +96,9 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 			</Button>
 
 			{error && (
-				<Alert variant="destructive">
+				<Alert variant="default">
 					<AlertCircle className="h-4 w-4" />
-					<AlertTitle>Error</AlertTitle>
+					<AlertTitle>Note</AlertTitle>
 					<AlertDescription>{error}</AlertDescription>
 				</Alert>
 			)}
