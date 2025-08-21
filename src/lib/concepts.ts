@@ -254,17 +254,6 @@ export const concepts: Record<string, Concept> = {
         `,
 			},
 			{
-				title: "Temperature",
-				content: `
-        <p>"Temperature" is a hyperparameter that controls the randomness of the output when generating text from an LLM. It affects the probability distribution over the next possible tokens.</p>
-        <ul>
-            <li><strong>Low Temperature (close to 0):</strong> The model will be more deterministic and repetitive. It will favor the most probable next tokens, resulting in output that is more focused and less creative. This is useful when you need precise and predictable responses, like answering factual questions.</li>
-            <li><strong>High Temperature (e.g., 0.8 to 1.0):</strong> The model will be more random and creative. It will consider a wider range of possible next tokens, including less probable ones. This can lead to more surprising, diverse, and potentially more interesting or imaginative text. However, very high temperatures can sometimes result in nonsensical or off-topic output.</li>
-        </ul>
-        <p>Think of it like choosing the next word in a sentence. With a low temperature, you'd always pick the most obvious word. With a higher temperature, you might pick a less common but still fitting word, or even something a bit unexpected to make the sentence more interesting.</p>
-        `,
-			},
-			{
 				title: "Tokens and maxOutputTokens",
 				content: `
         <p>Large Language Models process and generate text in units called "tokens." A token is not necessarily a single word; it can be a word, a sub-word, or even a single character or punctuation mark. For example, the word "unbelievable" might be broken down into tokens like "un", "believ", and "able".</p>
