@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
@@ -11,7 +11,23 @@ export const metadata: Metadata = {
 		description: "Master complex concepts through interactive, bite-sized lessons",
 		type: "website",
 	},
-	viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+	icons: {
+		icon: [
+			{ url: '/favicon.ico' },
+			{ url: '/icon-16x16.png', sizes: '16x16', type: 'image/png' },
+			{ url: '/icon-32x32.png', sizes: '32x32', type: 'image/png' },
+		],
+		apple: [
+			{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+		],
+	},
+};
+
+export const viewport: Viewport = {
+	width: 'device-width',
+	initialScale: 1,
+	maximumScale: 5,
+	themeColor: '#9333ea',
 };
 
 export default function RootLayout({
