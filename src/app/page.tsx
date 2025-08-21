@@ -34,14 +34,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ [
 	
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-			{/* Subtle gradient mesh background */}
-			<div className="fixed inset-0 -z-10 h-full w-full bg-background">
-				<div className="absolute inset-0 bg-gradient-mesh opacity-30" />
-				<div className="absolute top-0 -left-4 w-72 h-72 bg-primary/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" />
-				<div className="absolute top-0 -right-4 w-72 h-72 bg-secondary/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" style={{ animationDelay: '2s' }} />
-				<div className="absolute -bottom-8 left-20 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" style={{ animationDelay: '4s' }} />
-			</div>
-
 			{/* Modern Navigation */}
 			<ModernNavigation currentTopicId={currentTopicId} />
 			
