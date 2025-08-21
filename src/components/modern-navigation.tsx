@@ -5,6 +5,7 @@ import { useState } from "react";
 import { concepts, topics } from "@/lib/concepts";
 import { Button } from "@/components/ui/button";
 import { Menu, ChevronDown, GraduationCap, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ModernNavigationProps {
 	currentTopicId: string;
@@ -53,7 +54,7 @@ export function ModernNavigation({ currentTopicId }: ModernNavigationProps) {
 								
 								{/* Dropdown Menu */}
 								{activeDropdown === topic.id && (
-									<div className="absolute top-full left-0 mt-2 w-80 bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-xl animate-fade-in">
+									<div className="absolute top-full left-0 mt-2 w-80 bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-xl">
 										<div className="p-4">
 											<div className="flex items-center gap-2 mb-3">
 												{topic.icon && <topic.icon className="w-5 h-5 text-primary" />}
@@ -66,7 +67,7 @@ export function ModernNavigation({ currentTopicId }: ModernNavigationProps) {
 														href={`/?topic=${concept.id}`}
 														onClick={() => setActiveDropdown(null)}
 														className={cn(
-															"flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group/item",
+															"flex items-center gap-3 p-3 rounded-xl transition-all duration-200",
 															currentTopicId === concept.id
 																? "bg-gradient-primary text-white shadow-md"
 																: "hover:bg-muted/50 hover:translate-x-1"
@@ -114,7 +115,7 @@ export function ModernNavigation({ currentTopicId }: ModernNavigationProps) {
 
 				{/* Mobile Navigation */}
 				{isMenuOpen && (
-					<div className="lg:hidden animate-fade-in">
+					<div className="lg:hidden">
 						<div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl mt-2 shadow-xl">
 							{topics.map((topic) => (
 								<div key={topic.id} className="space-y-2">
@@ -167,9 +168,4 @@ export function ModernNavigation({ currentTopicId }: ModernNavigationProps) {
 			</div>
 		</nav>
 	);
-}
-
-// Helper function for className
-function cn(...classes: (string | boolean | undefined)[]) {
-	return classes.filter(Boolean).join(' ');
 }
