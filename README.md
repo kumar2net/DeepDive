@@ -35,10 +35,11 @@ A comprehensive learning platform for deep learning concepts with AI-powered pro
    ```
 
 3. **Set up environment variables**:
-   Create a `.env.local` file with:
+   Copy the example environment file and add your API key:
    ```bash
-   GOOGLE_AI_API_KEY=your_google_ai_api_key_here
+   cp .env.example .env.local
    ```
+   Then edit `.env.local` and replace `your_google_ai_api_key_here` with your actual API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
 
 4. **Start development server**:
    ```bash
