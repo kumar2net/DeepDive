@@ -19,6 +19,7 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 		setLoading(true);
 		setError(null);
 		setIdeas(null);
+		
 		try {
 			const result = await generateProjectIdeas({ concept: conceptName });
 			const ideaList = result.projectIdeas
@@ -28,8 +29,8 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 				.map((idea) => idea.replace(/^\d+\.\s*/, "")); // Remove numbering like "1. "
 			setIdeas(ideaList);
 		} catch (e) {
+			console.error("AI service error:", e);
 			setError("Failed to generate project ideas. Please try again later.");
-			console.error(e);
 		} finally {
 			setLoading(false);
 		}
@@ -109,6 +110,9 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 												</span>
 												<span className="px-3 py-1 text-xs rounded-full bg-accent/10 text-accent font-medium">
 													Hands-on Project
+												</span>
+												<span className="px-3 py-1 text-xs rounded-full bg-secondary/10 text-secondary font-medium">
+													AI Generated
 												</span>
 											</div>
 										</div>
