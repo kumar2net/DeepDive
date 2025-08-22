@@ -21,6 +21,13 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 		setIsClient(true);
 	}, []);
 
+	// Reset state when concept changes
+	useEffect(() => {
+		setIdeas(null);
+		setError(null);
+		setLoading(false);
+	}, [conceptName]);
+
 	const handleGenerate = async () => {
 		if (!isClient) return;
 		
