@@ -48,15 +48,29 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 			}
 
 			const result = await response.json();
+			
+			// Check if projectIdeas exists and is a string
+			if (!result || !result.projectIdeas) {
+				throw new Error("No project ideas returned from API");
+			}
+			
+			// Parse the projectIdeas string into an array
 			const ideaList = result.projectIdeas
 				.split("\n")
 				.map((idea: string) => idea.trim())
 				.filter((idea: string) => idea.length > 0)
 				.map((idea: string) => idea.replace(/^\d+\.\s*/, "")); // Remove numbering like "1. "
+			
+			// Ensure we have at least one idea
+			if (ideaList.length === 0) {
+				throw new Error("No valid project ideas generated");
+			}
+			
 			setIdeas(ideaList);
 		} catch (e) {
 			console.error("AI service error:", e);
-			setError("Failed to generate project ideas. Please try again later.");
+			const errorMessage = e instanceof Error ? e.message : "Failed to generate project ideas";
+			setError(`Error: ${errorMessage}. Please try again.`);
 		} finally {
 			setLoading(false);
 		}

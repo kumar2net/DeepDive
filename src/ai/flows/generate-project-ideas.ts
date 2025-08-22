@@ -44,6 +44,10 @@ const prompt = ai.definePrompt({
 	prompt: `You are a helpful AI assistant that generates project ideas for deep learning students.
 
   Given a deep learning concept, you will provide a list of project ideas that will help students gain practical experience and build their portfolio.
+  
+  Please generate 3-5 practical project ideas. Format them as a newline-separated list, with each idea on its own line.
+  Each idea should be a complete sentence describing what the student will build or implement.
+  Do not include numbers or bullet points at the beginning of each line.
 
   Concept: {{{concept}}}
   `,
