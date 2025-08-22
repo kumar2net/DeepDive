@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { generateProjectIdeas } from "@/ai/flows/generate-project-ideas";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -36,12 +35,24 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 		setIdeas(null);
 		
 		try {
-			const result = await generateProjectIdeas({ concept: conceptName });
+			const response = await fetch("/api/generate-ideas", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ concept: conceptName }),
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			const result = await response.json();
 			const ideaList = result.projectIdeas
 				.split("\n")
-				.map((idea) => idea.trim())
-				.filter((idea) => idea.length > 0)
-				.map((idea) => idea.replace(/^\d+\.\s*/, "")); // Remove numbering like "1. "
+				.map((idea: string) => idea.trim())
+				.filter((idea: string) => idea.length > 0)
+				.map((idea: string) => idea.replace(/^\d+\.\s*/, "")); // Remove numbering like "1. "
 			setIdeas(ideaList);
 		} catch (e) {
 			console.error("AI service error:", e);
