@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { generateProjectIdeas } from "@/ai/flows/generate-project-ideas";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,8 +14,16 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 	const [ideas, setIdeas] = useState<string[] | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const [isClient, setIsClient] = useState(false);
+
+	// Ensure we're on the client side
+	useEffect(() => {
+		setIsClient(true);
+	}, []);
 
 	const handleGenerate = async () => {
+		if (!isClient) return;
+		
 		setLoading(true);
 		setError(null);
 		setIdeas(null);
@@ -35,6 +43,25 @@ export function ProjectIdeaGenerator({ conceptName }: { conceptName: string }) {
 			setLoading(false);
 		}
 	};
+
+	// Don't render anything until we're on the client
+	if (!isClient) {
+		return (
+			<Card variant="glass" className="text-center p-8 md:p-12">
+				<div className="space-y-4">
+					<div className="w-20 h-20 mx-auto rounded-full bg-gradient-primary/10 flex items-center justify-center">
+						<Sparkles className="w-10 h-10 text-primary animate-pulse" />
+					</div>
+					<div className="space-y-2">
+						<h3 className="text-lg md:text-xl font-semibold">Loading...</h3>
+						<p className="text-sm md:text-base text-muted-foreground max-w-md mx-auto">
+							Initializing AI service...
+						</p>
+					</div>
+				</div>
+			</Card>
+		);
+	}
 
 	return (
 		<div className="space-y-6">

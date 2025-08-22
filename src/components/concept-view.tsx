@@ -13,6 +13,7 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ProjectIdeaGenerator } from "./project-idea-generator";
+import { ErrorBoundary } from "./error-boundary";
 import { Sparkles, BookOpen, Rocket } from "lucide-react";
 
 type ConceptViewProps = {
@@ -103,7 +104,9 @@ export default function ConceptView({ concept }: ConceptViewProps) {
 						</div>
 					</CardHeader>
 					<CardContent className="pt-0">
-						<ProjectIdeaGenerator conceptName={concept.title} />
+						<ErrorBoundary>
+							<ProjectIdeaGenerator conceptName={concept.title} />
+						</ErrorBoundary>
 					</CardContent>
 				</Card>
 			</section>
