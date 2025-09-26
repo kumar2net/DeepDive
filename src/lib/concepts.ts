@@ -76,6 +76,11 @@ export const topics: Topic[] = [
 				title: "Understanding LLM Parameters",
 				icon: BrainCircuit,
 			},
+			{
+				id: "nano-babana",
+				title: "Nano Babana: Prompt-to-Image",
+				icon: Bot,
+			},
 		],
 	},
 ];
@@ -282,6 +287,71 @@ export const concepts: Record<string, Concept> = {
         </ol>
         <p>So, while Gemini can give you the answer, it's not because it "knows" the score instantly. It's because it's smart enough to understand your need for current information and has the capability to use tools to find that information for you.</p>
         `,
+			},
+		],
+	},
+	"nano-babana": {
+		id: "nano-babana",
+		title: "Nano Babana: Prompt-to-Image",
+		summary:
+			"An overview of how the gen AI tool nano babana turns a text prompt into an image, including the processing pipeline and a concrete example.",
+		deepDive: [
+			{
+				title: "What Is Nano Babana?",
+				content: `
+			<p><strong>nano babana</strong> is a generative AI tool that converts natural-language prompts into images. It combines prompt understanding, safety filtering, and a diffusion-based image generator to produce high‑quality visuals that match user intent.</p>
+			`,
+			},
+			{
+				title: "Prompt → Image: End‑to‑End Pipeline",
+				content: `
+			<ol>
+				<li><strong>Prompt Parsing:</strong> The raw text prompt is tokenized and normalized (spelling fixes, style keyword expansion like "cinematic lighting").</li>
+				<li><strong>Safety & Policy Filters:</strong> The prompt is screened for disallowed or sensitive content; blocked terms are removed or the request is declined.</li>
+				<li><strong>Prompt Conditioning:</strong> A text encoder (e.g., a Transformer) turns the prompt into embeddings; optional <em>negative prompt</em> embeddings push the model away from undesired traits.</li>
+				<li><strong>Model Selection:</strong> A suitable checkpoint/preset (e.g., photorealistic, anime, product) is chosen; guidance parameters are prepared.</li>
+				<li><strong>Diffusion Sampling:</strong> Starting from noise, the model iteratively denoises toward an image consistent with the prompt embeddings (steps ~20–50).</li>
+				<li><strong>Upscaling & Post‑processing:</strong> Optional face restoration, super‑resolution, color/contrast tweaks, and artifact cleanup.</li>
+				<li><strong>Output & Delivery:</strong> The final image is encoded (PNG/JPEG/WebP), metadata may include seed, steps, and guidance scale for reproducibility.</li>
+			</ol>
+			`,
+			},
+			{
+				title: "Key Inputs & Parameters",
+				content: `
+			<ul>
+				<li><strong>prompt:</strong> Natural language description of the target image.</li>
+				<li><strong>negativePrompt:</strong> Traits to avoid (e.g., "blurry, extra fingers").</li>
+				<li><strong>guidanceScale (CFG):</strong> How strongly the image should follow the text; higher = closer adherence, lower = more creative.</li>
+				<li><strong>numSteps:</strong> Diffusion steps; more steps can yield more detail but take longer.</li>
+				<li><strong>seed:</strong> Controls randomness; reuse to reproduce similar images.</li>
+				<li><strong>size:</strong> Output resolution (e.g., 768×768).</li>
+				<li><strong>model/preset:</strong> A style or domain‑specific checkpoint (e.g., product, landscape, anime).</li>
+			</ul>
+			`,
+			},
+			{
+				title: "Example: Product Shot from a Prompt",
+				content: `
+			<p><strong>Prompt:</strong> "A minimalist studio photo of a matte black wireless headphone on a marble pedestal, soft rim lighting, 85mm lens, high detail, dramatic shadows"</p>
+			<p><strong>Negative Prompt:</strong> "text, watermark, logo, blurry, low‑res, extra objects"</p>
+			<ul>
+				<li><strong>Parameters:</strong> guidanceScale=7.5, numSteps=30, seed=12345, size=768×768, preset=photorealistic</li>
+				<li><strong>Result:</strong> A sharp, studio‑style product image with clean composition, controlled lighting, and realistic textures.</li>
+			</ul>
+			<p>Re‑using the same seed with small prompt edits (e.g., changing lighting to "softbox" or pedestal to "concrete") yields consistent variations.</p>
+			`,
+			},
+			{
+				title: "Prompting Tips",
+				content: `
+			<ul>
+				<li><strong>Be specific:</strong> Mention subject, setting, camera/lens, lighting, and mood.</li>
+				<li><strong>Use constraints:</strong> Add negative prompts to suppress common artifacts.</li>
+				<li><strong>Iterate:</strong> Start broad, review, then refine details and parameters.</li>
+				<li><strong>Control variability:</strong> Fix a seed for reproducible iterations; change it for exploration.</li>
+			</ul>
+			`,
 			},
 		],
 	},
